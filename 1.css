@@ -12,18 +12,20 @@ body {
     flex-direction: column; /* Stack elements vertically on smaller screens */
 }
 
+
 #progress {
-    text-align: right;
+    text-align: center; /*Center the text on all screens */
     padding: 10px;
     background-color: #f0f0f0;
     border-bottom: 1px solid #ccc;
     border-radius: 0 0 10px 10px;
-    text-align: center; /* Center the text inside #progress */
+    margin-top: 20px; /* Add sppace between #progress and .container */
 }
 
 #progressValue {
     font-weight: bold;
     color: #12e119;
+    font-size: 1.5rem; /* Increase font size for better visibility on smaller screens */
 }
 
 .container {
@@ -32,10 +34,11 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 500px;
-    width: 100%;
+    width: 90%; /* Reduce the width slightly to fit better on smaller screens */
     text-align: center;
-    margin-top: 20px; /* Add space between #progress and .container */
+    margin-top: 20px;/* Add space between #progress and .container */
 }
+
 
 h1 {
     margin-bottom: 20px;
