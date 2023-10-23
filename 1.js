@@ -14,11 +14,10 @@ taskList.addEventListener('click', handleTaskActions);
 
 // Function to add a new task
 function addTask() {
-    // Get the task description from the input field
-    const taskText = taskInput.value;
     
-    // Get the target time for the task from the user
-    const taskTime = parseFloat(prompt('Enter the target time for this task (in minutes):'));
+    const taskText = taskInput.value;  // Get the task description from the input field
+    
+    const taskTime = parseFloat(prompt('Enter target time for this task(in minutes):'));   // Get the target time for the task from the user
 
     // Check if the input is valid
     if (taskText.trim() !== '' && !isNaN(taskTime) && taskTime > 0) {
@@ -57,29 +56,36 @@ function addTask() {
         updateProgress();
     } else {
         // Display an alert if the input is invalid
-        alert('Please enter valid time bro');
+        alert('Please enter valid time');
     }
 }
 
-// Function to handle task actions (e.g., deleting or marking as completed)
+// taskList(parent)
+// -> taskItem(child of taskList and parent of below 4)
+//     ->checkbox(child of taskItem)
+//     ->label(child)
+//     ->taskDetails(child)
+//     ->deleteButton(child) 
+
+// Function to handle task actions (deleting ising button or marking as completed in checkbox)
 function handleTaskActions(event) {
     const target = event.target;
 
     if (target.classList.contains('deleteTask')) {
         // Remove the task if the delete button is clicked
-        target.parentElement.remove();
+        target.parentElement.remove();  //taskItem is removed from taskList
         totalTasks--;
         updateProgress();
-    } else if (target.tagName.toLowerCase() === 'input' && target.type === 'checkbox') {
-        // Toggle the class 'completed' for the task item
-        target.parentElement.classList.toggle('completed');
+    } else if (target.tagName.toLowerCase() === 'input' && target.type === 'checkbox') { //tagname -> input,div,h1,p etc
+    
+        target.parentElement.classList.toggle('completed');   // adds if absent,removes if presemt 
 
         // If the task is completed, set its style to green and bold
         if (target.parentElement.classList.contains('completed')) {
             target.parentElement.style.color = 'green';
             target.parentElement.style.fontWeight = 'bold';
         } else {
-            // If the task is not completed, remove the green style
+            // If the task is not completed, remove the green style color
             target.parentElement.style.color = '';
             target.parentElement.style.fontWeight = '';
         }
@@ -90,42 +96,39 @@ function handleTaskActions(event) {
 
         // Prompt for actual time spent if the task is marked as completed
         if (target.parentElement.classList.contains('completed')) {
-            const actualTime = parseFloat(prompt('Enter the actual time spent on this task (in minutes):'));
+            const actualTime = parseFloat(prompt('Enter the time spent on task(in minutes):'));
             if (!isNaN(actualTime) && actualTime > 0) {
-                // Create a section for actual time spent and add it to the task details
-                const timeSpent = document.createElement('div');
-                // timeSpent.innerHTML = `<span>Actual time spent:</span> ${actualTime} mins`;
-                // taskDetails.innerHTML = `Target<br>Time: ${taskTime} mins`;
-                timeSpent.innerHTML = `<br>Time Spent: ${actualTime} mins`;
-
+                // this will create a section for actual time spent 
+                const timeSpent = document.createElement('div');    //I will work on this...to replace div element
+                timeSpent.innerHTML = `Time Spent: ${actualTime} mins`;
                 target.parentElement.querySelector('.taskDetails').appendChild(timeSpent);
-            } else {
-                // Display an alert if the input is invalid
-                alert('Please enter valid time bro');
+            } 
+            else {
+                alert('Please enter valid time'); //if input is not valid
             }
-        } else {
-            // Remove the actual time spent element if the task is uncompleted
+         } else {
+            // Remove the actual time spent element if the task is incomplete
             const timeSpentElement = target.parentElement.querySelector('.taskDetails div');
-            if (timeSpentElement) {
-                timeSpentElement.remove();
+            if (timeSpentElement) {   //if timeSpentElement=something
+                timeSpentElement.remove();   //remove it
             }
         }
     }
 }
 
-// Function to update the progress and display it on the webpage
+// Function to update the progress and display it above 
 function updateProgress() {
     // Count the total tasks and completed tasks at the current moment
-    const tasks = document.querySelectorAll('li').length;
+    const totalTasks = document.querySelectorAll('li').length;
     const completedTasksNow = document.querySelectorAll('li.completed').length;
 
-    // Calculate the progress percentage (avoid division by zero)
-    const progressPercentage = tasks === 0 ? 0 : Math.floor((completedTasksNow / tasks) * 100);
-
-    // Update the content of the progressValue element with the calculated percentage
+    const progressPercentage = totalTasks === 0 ? 0 : Math.floor((completedTasksNow / totalTasks) * 100); //(smartly avoided the division by 0 hehe)
+  //if (tasks ===0)? true condition : false condition;
+    // quickly Update the content of the progressValue element with the calculated percentage
     progressValue.textContent = `${progressPercentage}%`;
 }
 
+//END OF THE CODE
 
 
 
@@ -145,6 +148,28 @@ function updateProgress() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//OLD CODES JUST FOR FUTURE REFERENCE 
 
 /* function addTask() {
     const taskText = taskInput.value;
@@ -206,27 +231,9 @@ function updateProgress() {
         }
     }
 }
- */
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 
 const taskInput = document.getElementById('taskInput');
 const taskList = document.getElementById('taskList');
 const addTaskButton = document.getElementById('addTask');
@@ -322,26 +329,11 @@ function updateProgress() {
     progressValue.textContent = `${progressPercentage}%`;
 }
 
- */
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* const taskInput = document.getElementById('taskInput');
+const taskInput = document.getElementById('taskInput');
 const taskList = document.getElementById('taskList');
 const addTaskButton = document.getElementById('addTask');
 const clearTasksButton = document.getElementById('clearTasks');
@@ -436,7 +428,7 @@ function handleTaskActions(event) {
 
 
 
-/* 
+
 function handleTaskActions(event) {
     const target = event.target;
 
@@ -460,11 +452,11 @@ function handleTaskActions(event) {
 
         // Rest of your code...
     }
-} */
+} 
 
 
 
-/* function handleTaskActions(event) {
+ function handleTaskActions(event) {
     const target = event.target;
 
     if (target.classList.contains('deleteTask')) {
