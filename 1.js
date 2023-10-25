@@ -67,16 +67,17 @@ function addTask() {
 //     ->taskDetails(child)
 //     ->deleteButton(child) 
 
-// Function to handle task actions (deleting ising button or marking as completed in checkbox)
+// Function to handle task actions (deleting button or marking as completed in checkbox)
 function handleTaskActions(event) {
     const target = event.target;
 
     if (target.classList.contains('deleteTask')) {
         // Remove the task if the delete button is clicked
-        target.parentElement.remove();  //taskItem is removed from taskList
+        target.parentElement.remove();  //target=deletebutton and parentEle is taskItem,so taskItem is removed from taskList
         totalTasks--;
         updateProgress();
     } else if (target.tagName.toLowerCase() === 'input' && target.type === 'checkbox') { //tagname -> input,div,h1,p etc
+    // } else if ( target.type === 'checkbox') { //tagname -> input,div,h1,p etc
     
         target.parentElement.classList.toggle('completed');   // adds if absent,removes if presemt 
 
